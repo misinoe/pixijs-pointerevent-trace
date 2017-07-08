@@ -13,5 +13,5 @@ var stage = application.stage;
 
 var plane = new PIXI.Graphics();
 stage.addChild(plane);
-plane.beginFill(0xffffff);
+plane.beginFill(0xff0088, 1);
 plane.drawRect(0, 0, width, height);
