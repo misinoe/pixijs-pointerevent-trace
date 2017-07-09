@@ -27,15 +27,33 @@ var pointerHandler = event => {
   var type = event.type;
   var identifier = event.data.identifier;
   if (type === lastLog[0] && identifier === lastLog[1]) {
-    log.push(1);
+    log.push(0);
     return;
   }
+
+  var data = event.data;
+  var originalEvent = data.originalEvent;
+  log.push({
+    type: event.type,
+    data: {
+      button: data.button,
+      buttons: data.buttons,
+      global: data.global,
+      identifier: data.identifier,
+      isPrimary: data.isPrimary,
+      pressure: data.pressure,
+      originalEvent: {
+        pointerType: originalEvent.pointerType,
+        type: originalEvent.type
+      }
+    }
+  });
   var currentLog = [type, identifier];
-  log.push(currentLog);
   lastLog = currentLog;
 };
 
 var pointerEndHandler = event => {
+  console.log(log);
   var json = JSON.stringify(log);
   out.innerText = json;
   prompt('copy this text', json);
